@@ -1,0 +1,70 @@
+version: '3.5'
+
+services:
+  server_1:
+    build: ./server_1
+    ports: 
+      - ${SERVER_1_PORT}:${SERVER_1_PORT}
+    environment: 
+      HOST: ${SERVER_1_HOST}
+      PORT: ${SERVER_1_PORT}
+      SERVER_3_HOST: ${SERVER_3_HOST}
+      SERVER_3_PORT: ${SERVER_3_PORT}
+    volumes:
+      - ./server_1:/app
+    restart: on-failure
+    depends_on: 
+      - server_3
+    networks:
+      - tme5-network
+
+  server_2:
+    build: ./server_2
+    ports: 
+      - ${SERVER_2_PORT}:${SERVER_2_PORT}
+    environment: 
+      HOST: ${SERVER_2_HOST}
+      PORT: ${SERVER_2_PORT}
+      SERVER_3_HOST: ${SERVER_3_HOST}
+      SERVER_3_PORT: ${SERVER_3_PORT}
+    volumes:
+      - ./server_2:/app
+    restart: on-failure
+    depends_on: 
+      - server_3
+    networks:
+      - tme5-network
+  
+  server_3:
+    build: ./server_3
+    ports: 
+      - ${SERVER_3_PORT}:${SERVER_3_PORT}
+    environment: 
+      HOST: ${SERVER_3_HOST}
+      PORT: ${SERVER_3_PORT}
+    volumes:
+      - ./server_3:/app
+    restart: on-failure
+    networks:
+      - tme5-network
+  
+  server_4:
+    build: ./server_4
+    ports: 
+      - ${SERVER_4_PORT}:${SERVER_4_PORT}
+    environment: 
+      HOST: ${SERVER_4_HOST}
+      PORT: ${SERVER_4_PORT}
+      SERVER_3_HOST: ${SERVER_3_HOST}
+      SERVER_3_PORT: ${SERVER_3_PORT}
+    volumes:
+      - ./server_4:/app
+    restart: on-failure
+    depends_on: 
+      - server_3
+    networks:
+      - tme5-network
+
+networks:
+  tme5-network:
+    driver: bridge
