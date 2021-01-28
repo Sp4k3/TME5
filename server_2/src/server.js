@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 const host = process.env.HOST
 const port = process.env.PORT
 const message = 'ping'
+const FgGreen = "\x1b[32m"
 
 // Server 3 infos
 const server_3_host = process.env.SERVER_3_HOST
@@ -60,7 +61,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const from = req.body.sender
   const message = req.body.message
-  console.log(`Message received from ${from} : ${message}.`)
+  console.log(FgGreen, `Message received from ${from} : ${message}.`)
   res.send(req.body.message)
   ping()
 })

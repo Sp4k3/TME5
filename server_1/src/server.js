@@ -14,6 +14,7 @@ const server_3_port = process.env.SERVER_3_PORT
 const server_3 = `http://${server_3_host}:${server_3_port}`
 
 let sended = false
+const FgGreen = "\x1b[32m"
 
 // App
 const app = express()
@@ -61,7 +62,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const from = req.body.sender
   const message = req.body.message
-  console.log(`Message received from ${from} : ${message}.`)
+  console.log(FgGreen, `Message received from ${from} : ${message}.`)
   res.send(req.body.message)
   if (!sended) ping() // Remove condition to start the infinite loop !
   sended = true

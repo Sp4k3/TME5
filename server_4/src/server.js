@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 // Constants
 const host = process.env.HOST
 const port = process.env.PORT
+const FgBlue = "\x1b[34m"
 
 // Server 3 infos
 const server_3_host = process.env.SERVER_3_HOST
@@ -51,7 +52,7 @@ app.post('/', async (req, res) => {
   })
   const server_recipient_ip = response.data.ip
 
-  console.log(`Broker redirect message '${message}' from '${fromIP}' to '${toIP}'.`)
+  console.log(FgBlue, `Broker redirect message '${message}' from '${fromIP}' to '${toIP}'.`)
   res.redirect(307, server_recipient_ip)
 })
 
